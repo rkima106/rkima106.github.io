@@ -1,0 +1,429 @@
+/* ==========================================================
+   Rusudan Kimadze · CV online
+   მხოლოდ HTML + CSS (JavaScript-ის გარეშე)
+   ========================================================== */
+
+/* ---------- 1. ცვლადები (ფერები, ზომები) ----------
+   ფერს აქ ცვლი და მთელ საიტზე შეიცვლება */
+:root {
+  --verde:        #8fb9ae;   /* მთავარი ფერი (CV-ს მწვანე) */
+  --verde-oscuro: #3f7467;   /* ტექსტისთვის/ღილაკებისთვის, კარგი კონტრასტი */
+  --verde-claro:  #eaf3f0;   /* ფონის ღია ტონი */
+  --texto:        #1f2a28;
+  --texto-suave:  #55625f;
+  --fondo:        #ffffff;
+  --linea:        #d5e2de;
+
+  --radio: 14px;
+  --ancho: 1040px;
+}
+
+/* ---------- 2. საბაზისო სტილები ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;      /* რბილი გადასვლა ბმულებზე (CSS-ით!) */
+  scroll-padding-top: 70px;     /* რომ ზედა ზოლმა სათაური არ დაფაროს */
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--texto);
+  background: var(--fondo);
+}
+
+img { max-width: 100%; display: block; }
+a   { color: var(--verde-oscuro); }
+ul, ol { margin: 0; padding: 0; }
+
+h1, h2, h3 { line-height: 1.2; margin: 0; }
+
+.contenedor {
+  width: min(100% - 2rem, var(--ancho));   /* 1rem მარცხნივ და მარჯვნივ პატარა ეკრანზე */
+  margin-inline: auto;
+}
+
+/* ---------- 3. ზედა ნავიგაცია ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linea);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 56px;
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-decoration: none;
+  color: var(--texto);
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem 1.25rem;
+  list-style: none;
+  font-size: .85rem;
+  font-weight: 500;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--texto-suave);
+  padding: .25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--texto);
+  border-color: var(--verde);
+}
+
+/* ენის გადამრთველი ES | EN */
+.lang-switch { display: flex; gap: .35rem; flex-shrink: 0; }
+
+.lang-switch a {
+  padding: .2rem .7rem;
+  border: 1.5px solid var(--verde);
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--verde-oscuro);
+  transition: background .2s, color .2s;
+}
+
+.lang-switch a:hover { background: var(--verde-claro); }
+
+/* აქტიური ენა */
+.lang-switch a[aria-current="page"] {
+  background: var(--verde-oscuro);
+  border-color: var(--verde-oscuro);
+  color: #fff;
+}
+
+/* ---------- 4. HERO ---------- */
+.hero {
+  background: var(--verde-claro);
+  padding: 4rem 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;     /* ტექსტი | ფოტო */
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.etiqueta {
+  margin: 0 0 .5rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--verde-oscuro);
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 4.5rem);   /* ეკრანის ზომასთან ერთად იცვლება */
+  font-weight: 500;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.subtitulo {
+  margin: 1.25rem 0 .75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.hero-resumen {
+  max-width: 52ch;
+  margin: 0 0 1.75rem;
+  color: var(--texto-suave);
+}
+
+.foto {
+  width: clamp(180px, 26vw, 280px);
+  height: auto;            /* HTML-ის height ატრიბუტი არ უნდა გაწელოს ფოტო */
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 10px solid var(--verde);
+  box-shadow: 0 10px 30px rgba(63, 116, 103, .25);
+}
+
+/* ---------- 5. ღილაკები ---------- */
+.botones { display: flex; flex-wrap: wrap; gap: .75rem; }
+.botones.centro { justify-content: center; }
+
+.boton {
+  display: inline-block;
+  padding: .75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .95rem;
+  text-decoration: none;
+  border: 2px solid var(--verde-oscuro);
+  transition: transform .15s, background .2s, color .2s;
+}
+
+.boton:hover,
+.boton:focus-visible { transform: translateY(-2px); }
+
+.boton-principal   { background: var(--verde-oscuro); color: #fff; }
+.boton-principal:hover { background: #2f5c51; }
+
+.boton-secundario  { background: transparent; color: var(--verde-oscuro); }
+.boton-secundario:hover { background: var(--verde-oscuro); color: #fff; }
+
+/* ---------- 6. სექციები ---------- */
+.seccion      { padding: 4rem 0; }
+.seccion-alt  { background: var(--verde-claro); }
+
+h2 {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-bottom: .75rem;
+  font-size: 1.7rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* მწვანე ხაზი სათაურის ქვეშ */
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--verde);
+}
+
+.resumen { max-width: 70ch; margin: 0; font-size: 1.05rem; }
+
+/* ---------- 7. გამოცდილება (timeline) ---------- */
+.linea-tiempo {
+  list-style: none;
+  position: relative;
+  padding-left: 2rem;
+  border-left: 4px solid var(--verde);
+}
+
+.hito {
+  position: relative;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--fondo);
+  border-radius: var(--radio);
+  box-shadow: 0 2px 10px rgba(31, 42, 40, .06);
+}
+
+.hito:last-child { margin-bottom: 0; }
+
+/* წრე ხაზზე */
+.hito::before {
+  content: "";
+  position: absolute;
+  left: calc(-2rem - 10px);
+  top: 1.6rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--fondo);
+  border: 4px solid var(--verde-oscuro);
+}
+
+.hito h3 { font-size: 1.1rem; font-weight: 600; }
+.hito h3 small { font-weight: 500; color: var(--texto-suave); font-size: .85rem; }
+
+.meta {
+  margin: .35rem 0 .75rem;
+  font-size: .9rem;
+  color: var(--texto-suave);
+}
+
+.meta span { font-weight: 600; color: var(--verde-oscuro); }
+
+.hito ul { padding-left: 1.1rem; }
+.hito li { margin-bottom: .35rem; }
+.hito li::marker { color: var(--verde-oscuro); }
+
+/* ---------- 8. ბარათები (განათლება / კომპეტენციები) ---------- */
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  /* ავტომატურად ეწყობა სვეტებად */
+  gap: 1.25rem;
+}
+
+.tarjeta {
+  padding: 1.5rem;
+  background: var(--fondo);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(31, 42, 40, .08);
+}
+
+.tarjeta h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .5rem; }
+.tarjeta p  { margin: 0; color: var(--texto-suave); font-size: .95rem; }
+
+.tarjeta .fecha {
+  display: inline-block;
+  margin-bottom: .75rem;
+  padding: .15rem .7rem;
+  border-radius: 999px;
+  background: var(--verde-claro);
+  color: var(--verde-oscuro);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.subtitulo-seccion {
+  margin: 3rem 0 1rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* სერტიფიკატები */
+.certificaciones { list-style: none; }
+
+.certificaciones li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.certificaciones li span {
+  flex-shrink: 0;
+  color: var(--texto-suave);
+  font-size: .9rem;
+}
+
+/* ---------- 9. ტეგები (ჩიპები) ---------- */
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .75rem;
+  list-style: none;
+}
+
+.etiquetas li {
+  padding: .25rem .85rem;
+  border-radius: 999px;
+  background: var(--verde-claro);
+  color: var(--verde-oscuro);
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+/* ---------- 10. ენები (პროგრესის ზოლი) ---------- */
+.idiomas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem 3rem;
+}
+
+.idioma p {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 .5rem;
+}
+
+.idioma p span { color: var(--texto-suave); font-size: .9rem; }
+
+.barra {
+  height: 10px;
+  border-radius: 999px;
+  background: #e4e8e7;
+  overflow: hidden;
+}
+
+/* ზოლის სიგანე მოდის HTML-იდან --nivel ცვლადით */
+.barra span {
+  display: block;
+  width: var(--nivel);
+  height: 100%;
+  border-radius: 999px;
+  background: var(--verde-oscuro);
+}
+
+/* ---------- 11. კონტაქტი ---------- */
+.contacto {
+  text-align: center;
+  background: var(--verde-claro);
+}
+
+.contacto h2::after { left: 50%; transform: translateX(-50%); }
+.contacto p { margin: 0 0 1.5rem; }
+.contacto .ubicacion { margin: 1.5rem 0 0; color: var(--texto-suave); font-size: .9rem; }
+
+/* ---------- 12. ფუტერი ---------- */
+.pie {
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: .85rem;
+  color: #fff;
+  background: var(--verde-oscuro);
+}
+
+.pie p { margin: 0; }
+
+/* ---------- 13. რესპონსივი (პატარა ეკრანი) ---------- */
+@media (max-width: 720px) {
+  .hero { padding: 2.5rem 0; }
+
+  .hero-grid {
+    grid-template-columns: 1fr;     /* ერთ სვეტად */
+    text-align: center;
+    justify-items: center;
+  }
+
+  .foto { order: -1; }              /* ფოტო ტექსტის ზემოთ */
+  .botones { justify-content: center; }
+
+  /* პატარა ეკრანზე მენიუ ჰორიზონტალურად იხვევა */
+  .nav-links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-width: 0;
+    scrollbar-width: none;
+    white-space: nowrap;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .seccion { padding: 3rem 0; }
+
+  .certificaciones li { flex-direction: column; gap: 0; }
+}
+
+/* ანიმაციების გამორთვა მათთვის, ვისაც ეს სისტემაში აქვს ჩართული */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
